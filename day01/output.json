@@ -1,0 +1,17 @@
+{
+    "model": "llama3",
+    "created_at": "2026-01-06T13:53:50.0161055Z",
+    "message": {
+        "role": "assistant",
+        "content": "Cats are obligate carnivores, which means they require a diet rich in protein from animal sources to stay healthy and thrive. Here's a breakdown of what cats typically eat:\n\n1. **Protein-rich foods**: Cats need a steady supply of protein from animal-based ingredients such as:\n\t* Meat (beef, chicken, fish, lamb)\n\t* Poultry (turkey, duck)\n\t* Fish and seafood (salmon, tuna, shrimp)\n2. **Fatty acids"
+    },
+    "done": true,
+    "done_reason": "length",
+    "total_duration": 8748128300,
+    "load_duration": 261614900,
+    "prompt_eval_count": 27,
+    "prompt_eval_duration": 613640000,
+    "eval_count": 100,
+    "eval_duration": 7595460900
+}
+

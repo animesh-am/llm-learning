@@ -1,0 +1,16 @@
+{
+  "model": "llama3",
+  "created_at": "2026-01-06T14:09:33.9070919Z",
+  "message": {
+    "role": "assistant",
+    "content": "Cats are carnivores, which means they primarily eat meat and protein-rich foods. Here's a breakdown of what cats typically eat:\n\n1. **Dry food**: Also known as kibble, this is a common staple in many cat diets. Look for high-quality dry food that's rich in protein (chicken, salmon, or beef) and low in carbohydrates.\n2. **Wet food**: Canned or pouched wet food can be a tasty and nutritious addition to your cat's diet"
+  },
+  "done": true,
+  "done_reason": "length",
+  "total_duration": 15910316900,
+  "load_duration": 6858160500,
+  "prompt_eval_count": 27,
+  "prompt_eval_duration": 1105904500,
+  "eval_count": 100,
+  "eval_duration": 7661475900
+}

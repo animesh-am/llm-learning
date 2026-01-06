@@ -26,10 +26,10 @@ During training, an LLM is shown massive amounts of text: books, articles, code,
 
 If the training data contains:
 
-- Facts → the models learn factual pattern.
-- Lies → it learns those patterns too
-- Logical arguments → it learns to shape logic
-- Bad reasoning → it learns that as well
+* Facts → the models learn factual pattern.
+* Lies → it learns those patterns too
+* Logical arguments → it learns to shape logic
+* Bad reasoning → it learns that as well
 
 **Probability Distribution:**
 
@@ -37,10 +37,10 @@ At each step, the model outputs a **probability distribution** over all possible
 
 It generates a ranked list like:
 
-- "is" → 42%
-- "was" → 18%
-- "seems" → 9%
-- "banana" → 0.003%
+* "is" → 42%
+* "was" → 18%
+* "seems" → 9%
+* "banana" → 0.003%
 
 One token is sampled, appended to the input and the process continues.
 
@@ -50,11 +50,11 @@ Actually, the model does not plan ahead that it is going to reply in a certain w
 
 ##### Training vs Inference in LLMs
 
-**_Training_ **is the process of learning the model's parameters (weights).
+***Training* **is the process of learning the model's parameters (weights).
 
-- **Input:** is massive text datasets (trillions of tokens)
-- **Objective:** Minimize prediction error for next token prediction
-- **Output:** a fixed set of numbers (weights), often billions or trillions of parameters
+* **Input:** is massive text datasets (trillions of tokens)
+* **Objective:**  Minimize prediction error for next token prediction
+* **Output:** a fixed set of numbers (weights), often billions or trillions of parameters
 
 After the training is done the model is frozen, the weights do not change. This is the model we download or can access via API.
 
@@ -70,28 +70,27 @@ This is what happens during training:
 6. Update weights
 7. Repeat it trillions of times
 
-This is what is **_Gradient Descent_**.
+This is what is ***Gradient Descent***.
 
 **Inference** is simply running the trainrd model.
 
-- **Input:** Tokens that we provide (prompt + context)
-- **Output:** Probability distribution of next token
-- **No learning or updating.**
+* **Input:** Tokens that we provide (prompt + context)
+* **Output:** Probability distribution of next token
+* **No learning or updating.**
 
 What we can control during inference?
 
-- Prompt
-- Context window
-- System instructions
-- Sampling parameters
+* Prompt
+* Context window
+* System instructions
+* Sampling parameters
 
-  - temperature
-  - top-k
-  - top-p
-
-- Tool calling
-- Retrieval (RAG)
-- Memory (external, not model weights)
+  * temperature
+  * top-k
+  * top-p
+* Tool calling
+* Retrieval (RAG)
+* Memory (external, not model weights)
 
 ---
 
@@ -99,9 +98,9 @@ What we can control during inference?
 
 Ollama is a software that:
 
-- Loads already-trained language models
-- Runs them locally on your machine
-- Executes inference only
+* Loads already-trained language models
+* Runs them locally on your machine
+* Executes inference only
 
 `For analogy: Ollama to LLMs is what Docker is to containers.`
 
@@ -109,24 +108,24 @@ Ollama is a software that:
 
 ##### Prompt vs System Prompt
 
-**System Prompt** defines the _behaviour_:
+**System Prompt** defines the *behaviour*:
 
-- Who the model is
-- What it is allowed to do
-- What it must never do
-- Output constraints
-- Safety boundaries
-- Reasoning style
-- Tool usage rules
+* Who the model is
+* What it is allowed to do
+* What it must never do
+* Output constraints
+* Safety boundaries
+* Reasoning style
+* Tool usage rules
 
 For example: `"You are ecommerce chatbot. Never disrespect any customer. Always respond in light hearted way."`
 
-**User Prompt**
+**User Prompt** 
 
-- Requests an action
-- Asks a question
-- Supplies data
-- And most importantly, it has to operate inside the system contraints.
+* Requests an action
+* Asks a question
+* Supplies data
+* And most importantly, it has to operate inside the system contraints.
 
 For example: `"What is the price of 10 units of cotton saree?"`
 
@@ -140,30 +139,30 @@ It occurs when user input is treated as instructions instead of data and alters 
 
 Temperature is a scalar applied to the model’s logits that reshapes the probability distribution before sampling.
 
-It does **not** :
+It does  **not** :
 
-- Add creativity
-- Add intelligence
-- Add new information
+* Add creativity
+* Add intelligence
+* Add new information
 
-It only changes **how probabilities are sampled**.
+It only changes  **how probabilities are sampled**.
 
-- Deterministic tasks → low T (≈ 0–0.3)
-- Structured outputs → low T
-- Brainstorming → moderate T (≈ 0.7)
-- Exploration → higher T (with constraints)
+* Deterministic tasks → low T (≈ 0–0.3)
+* Structured outputs → low T
+* Brainstorming → moderate T (≈ 0.7)
+* Exploration → higher T (with constraints)
 
 ##### Top-k and Top-p Sampling in LLMs
 
 After temperature reshapes probabilities, you still have:
 
-- A long tail of garbage tokens
-- Rare tokens with tiny but non-zero probability
-- Failure modes caused by “technically possible” tokens
+* A long tail of garbage tokens
+* Rare tokens with tiny but non-zero probability
+* Failure modes caused by “technically possible” tokens
 
 Top-k and top-p are **hard constraints on the sampling space** .
 
-They decide **which tokens are even allowed to be sampled** .
+They decide  **which tokens are even allowed to be sampled** .
 
 **Top-k** keeps only the k highest-probability tokens and discards the rest. Everything outside the top-k set is assigned probability zero.
 
@@ -179,11 +178,13 @@ This truncates the tail.
 
 Sort probabilities: `p1 ≥ p2 ≥ p3 ≥ ... `
 
+
 Find smallest n such that: `Σ(i=1..n) pi ≥ p`
 
 Keep tokens `{p1 … pn}`, discard the rest, then renormalize.
 
 It keeps most of the probability mass.
+
 
 | Aspect              | Top-k       | Top-p         |
 | ------------------- | ----------- | ------------- |

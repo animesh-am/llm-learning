@@ -1,0 +1,16 @@
+{
+  "model": "llama3",
+  "created_at": "2026-01-06T14:17:33.0178794Z",
+  "message": {
+    "role": "assistant",
+    "content": "Cats are carnivores, which means they primarily feed on animal-based foods. Here's a breakdown of what cats typically eat:\n\n1. **Protein-rich foods**: Cats need protein to survive, so their diet should consist mainly of high-quality protein sources like:\n\t* Cooked chicken or turkey\n\t* Fish (cooked and boneless)\n\t* Beef or pork (lean cuts)\n\t* Eggs\n\t* Canned cat food with named animal sources (e.g., salmon, chicken"
+  },
+  "done": true,
+  "done_reason": "length",
+  "total_duration": 21047638500,
+  "load_duration": 8454799300,
+  "prompt_eval_count": 27,
+  "prompt_eval_duration": 1540514500,
+  "eval_count": 100,
+  "eval_duration": 10645882200
+}
