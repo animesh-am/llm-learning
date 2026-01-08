@@ -1,0 +1,6 @@
+The sentiment of the given text is:
+
+**Positive**
+
+The text expresses admiration and appreciation for someone's work, using the phrase "great job" to convey a
+positive tone.
