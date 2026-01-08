@@ -1,0 +1,7 @@
+[
+  {"animal": "Lion", "diet": "Carnivore", "dangerous": true, "confidence": 0.8},
+  {"animal": "Penguin", "diet": "Herbivore", "dangerous": false, "confidence": 0.9},
+  {"animal": "Crocodile", "diet": "Carnivore", "dangerous": true, "confidence": 0.7},
+  {"animal": "Giraffe", "diet": "Herbivore", "dangerous": false, "confidence": 0.6},
+  {"animal": "Bear", "diet": "Omnivore", "dangerous": true, "confidence": 0.5},
+]
