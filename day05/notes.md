@@ -1,4 +1,4 @@
-### aWhat is LCEL?
+### What is LCEL?
 
 LangChain Expression Langauage (LCEL) is a functional pipeline system for orchestrating computation over structure data. It is used to connect blocks like prompts, models, data retrievers and parsers by using  a "pipe" sysmbol (|) so that information flows smoothly from one part to another. Instead of writing complex code, we just stack these blocks in the order we need and LCEL makes sure each step passes its output to the next. It is developed to build AI apps quickly, keep code clean, modular and take advantage of features like parallel processing and easy debugging.
 
