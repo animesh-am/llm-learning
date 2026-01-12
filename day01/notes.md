@@ -12,7 +12,7 @@ For example:
 "ChatGPT" --> "Chat" and "GPT"
 ```
 
-Go to this link and find out the nimber of tokens for any sentence.
+Go to this link and find out the number of tokens for any sentence.
 
 [LLM Token Counter](https://platform.openai.com/tokenizer)
 
