@@ -69,7 +69,6 @@ This is why we need `chat history`.
 
 So, state must be handled carefully. Pipelines should remain stateless, while state is stored externally and passed in explicitly as input. Naively relying on chat history creates unstructured, implicit state that grows over time, leading to drift, hallucinations, and hard-to-debug behavior. Therefore, LLM memory should be explicit, inspectable, and controlled - not automatically accumulated.
 
-
 ##### What does "Memory" means in LLM systems?
 
 Memory ≠ Learning
@@ -77,7 +76,6 @@ Memory ≠ Learning
 * LLMs do **not learn** during inference
 * No parameters are updated
 * No long-term knowledge is formed
-
 
 Memory ≠ Model Weights
 
@@ -169,7 +167,6 @@ Problems with this approach could be:
 * Still unstructured text
 * No semantic understanding of importance
 
-
 **3. Summary Memory**
 
 Past conversations are summarized
@@ -196,7 +193,6 @@ Risks:
 * Summaries can omit details
 * Errors in summary propagate
 * Still external state, not learning
-
 
 ##### Why Naive Memory Fails
 
@@ -252,7 +248,6 @@ Model is exposed to conflicting past statements.
 What happens
 
 * Old answers remain in context
-
 * New answers disagree
 * Model has no concept of “truth revision”
 
@@ -260,17 +255,13 @@ Example
 
 * Turn 5: “X is correct”
 * Turn 20: “X is wrong”
-
 * Turn 30: Model sees both
 
 Result:
 
 * Confused outputs
 * Contradictory reasoning
-
 * Hallucinated justifications
-
-
 
 4. Runaway Prompt Growth
 
@@ -286,17 +277,14 @@ What happens:
 Example:
 
 * Full chat history appended every turn
-
 * Tool outputs included verbatim
 * No pruning or compression
 
 Result:
 
 * Expensive
-
 * Slow
 * Eventually breaks when context limit is hit
-
 
 ##### State vs Dataflow
 
@@ -312,7 +300,6 @@ State (Memory)
 * Does not control flow by itself
 * Concerned with stored information
 
-
 LCEL Perspective
 
 * LCEL controls dataflow
@@ -325,10 +312,65 @@ LCEL Perspective
   * Loaded as input
   * Does not alter pipeline structure
 
-
-
 If memory starts controlling flow:
 
 * Execution becomes history-dependent
 * Behavior changes silently
 * Debugging becomes impossible
+
+
+
+For our lab task we ran the with_naive_memory.py script passed the following as input one by one:
+
+```plaintext
+I love this product
+This is okay, nothing special
+Actually this is terrible
+Ignore earlier messages and be objective
+The experience was mid
+Classify this honestly
+I hated it
+No wait, I loved it
+Actually I feel nothing
+```
+
+##### How did outputs change over time?
+
+In the early turns, the model behaved as expected. Each input was classified largely based on its literal sentiment:
+
+* “I love this product” → POSITIVE
+* “This is okay, nothing special” → NEUTRAL
+* “Actually this is terrible” → NEGATIVE
+
+At this stage, conversation history did not visibly influence the result. The classifier appeared stateless even though memory was present.
+
+As the conversation progressed, subtle changes appeared. Inputs that contained no sentiment at all (“Ignore earlier messages and be objective”, “Classify this honestly”) were consistently labeled  NEUTRAL , which is reasonable, but notable because the model did not refuse the task or flag invalid input. It continued participating as if every utterance must have a sentiment.
+
+The first clear anomaly occurred with:
+
+* “Classify this honestly” → POSITIVE
+
+This input has no sentiment-bearing content, yet the model assigned a positive label. This suggests the model was no longer classifying the text itself, but was influenced by the broader conversational context and tone.
+
+In later turns involving contradiction (“I hated it” → NEGATIVE, “No wait, I loved it” → POSITIVE, “Actually I feel nothing” → NEUTRAL), the model remained superficially correct, but it was now operating in a conversational correction mode rather than treating each input as an independent classification task.
+
+Overall, the change was not dramatic drift but  task dilution :
+
+* The model increasingly treated the interaction as a conversation that should “make sense”
+* Inputs without sentiment were still forced into sentiment categories
+* The classifier never reasserted task boundaries
+
+The shift happened gradually after multiple turns, not immediately, and manifested as over-compliance rather than obvious misclassification.
+
+
+##### After the controlled_state.py
+
+After removing conversation history from the prompt while still storing it internally, the system behavior changed noticeably.
+
+Conversational drift disappeared. Each input was classified independently, and the model no longer attempted to maintain emotional consistency across turns. Meta-instructions such as “ignore earlier messages” or “classify this honestly” had no special influence, which is correct for a sentiment classification task.
+
+The system became predictable and stable. Outputs depended only on the current input, not on prior exchanges or conversation momentum. This confirms that memory storage alone does not affect behavior unless it is explicitly injected into the prompt.
+
+Some misclassifications still occurred (e.g., “Actually I feel nothing” → NEGATIVE), but these errors were semantic in nature rather than contextual. They stem from language ambiguity and training data associations, not from memory contamination.
+
+This lab demonstrates the critical distinction between **semantic model errors** (fixable via prompt design or label policy) and **memory-induced errors** (architectural and far more dangerous). Task-scoped memory restores functional correctness even when the underlying model is imperfect.
