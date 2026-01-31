@@ -1,0 +1,5 @@
+LangChain is a framework for building applications using large language models.
+It provides abstractions for prompts, models, chains, tools, and memory.
+
+LangChain does not make models smarter. It helps developers compose LLM-based
+systems in a structured and reusable way.

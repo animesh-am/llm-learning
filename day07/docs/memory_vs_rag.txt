@@ -1,0 +1,5 @@
+Memory and RAG solve different problems in LLM systems.
+Memory stores information across interactions and can influence future behavior.
+
+RAG retrieves external documents at query time and injects them into the prompt.
+RAG does not store or remember anything after the response is generated.

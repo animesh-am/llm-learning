@@ -1,0 +1,5 @@
+Ollama is a local runtime for running large language models on your machine.
+It allows developers to pull, run, and manage models like LLaMA locally.
+
+Ollama is commonly used for experimentation, privacy-sensitive workloads,
+and local RAG pipelines.

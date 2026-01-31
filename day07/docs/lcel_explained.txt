@@ -1,0 +1,5 @@
+LCEL stands for LangChain Expression Language.
+It allows developers to compose chains using a simple pipe-style syntax.
+
+In LCEL, components like prompts, models, and output parsers are connected
+using the | operator to form deterministic execution pipelines.
