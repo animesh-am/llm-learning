@@ -1,4 +1,4 @@
-from langchain_community.llms import Ollama
+from langchain_ollama import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnableLambda
@@ -60,7 +60,7 @@ If no tool is needed, respond with:
 # Model
 # -----------------------------
 
-llm = Ollama(model="llama3", temperature=0)  # reduce creative damage
+llm = OllamaLLM(model="llama3", temperature=0)
 
 
 # -----------------------------
