@@ -2,9 +2,15 @@ from dataclasses import dataclass
 from langgraph.graph import StateGraph, END
 import subprocess
 
-from rag_module import retrieve_context
-from tools_module import calculator, uppercase
+from day13.rag_module import retrieve_context
+from day13.tools_module import calculator, uppercase
 
+# Import this after getting to day14
+from day13.instrumentation import Instrumentation
+
+
+# ---- Instrumentation Instance ----
+instrumentor = Instrumentation()
 
 # ---- State ----
 @dataclass
@@ -26,19 +32,19 @@ def rag_node(state: AgentState):
 
 def llm_decide(state: AgentState):
     prompt = f"""
-Decide the next step.
+                Decide the next step.
 
-Context:
-{state.context}
+                Context:
+                {state.context}
 
-User Query:
-{state.query}
+                User Query:
+                {state.query}
 
-Choose ONE word only:
-ANSWER
-CALCULATE
-UPPERCASE
-"""
+                Choose ONE word only:
+                ANSWER
+                CALCULATE
+                UPPERCASE
+            """
 
     response = subprocess.run(
         ["ollama", "run", "llama3.1:8b", prompt],
@@ -69,19 +75,19 @@ UPPERCASE
 
 def answer_node(state: AgentState):
     prompt = f"""
-You are an assistant.
+                You are an assistant.
 
-Use ONLY the context below to answer the user's question.
-Do not hallucinate.
+                Use ONLY the context below to answer the user's question.
+                Do not hallucinate.
 
-Context:
-{state.context}
+                Context:
+                {state.context}
 
-Question:
-{state.query}
+                Question:
+                {state.query}
 
-Answer clearly and concisely.
-"""
+                Answer clearly and concisely.
+            """
 
     response = subprocess.run(
         ["ollama", "run", "llama3.1:8b", prompt],
@@ -107,8 +113,8 @@ def uppercase_node(state: AgentState):
 
 
 def done_node(state: AgentState):
-    print("\n[FINAL ANSWER]")
-    print(state.result)
+    instrumentor.record("DONE", state)
+    instrumentor.report()   # Print execution trace
     return state
 
 
