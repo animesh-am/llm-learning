@@ -1,0 +1,2 @@
+RAG stands for Retrieval Augmented Generation.
+It retrieves relevant documents at query time and injects them into the prompt.

@@ -1,0 +1,2 @@
+An agent is a system built as a loop with explicit state and decision logic.
+In modern AI systems, LangGraph enforces structured control flow.

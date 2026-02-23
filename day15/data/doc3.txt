@@ -1,0 +1,2 @@
+Tools in agent systems should be executed as leaf nodes.
+They must not decide control flow.
